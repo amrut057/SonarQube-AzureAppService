@@ -5,18 +5,18 @@
         "hostingPlanName": {
             "type": "string",
             "minLength": 1,
-            "defaultValue": "SonarQubeAppServicePlan"
+            "defaultValue": "BoqSonarQubePocASP"
         },
         "siteLocation": {
             "type": "string",
-            "defaultValue": "North Central US"
+            "defaultValue": "Australia East"
         },
         "siteName": {
             "type": "string",
-            "defaultValue": "SonarQubeAppService"
+            "defaultValue": "BoqSonarQubeAppServicePoc"
         },
         "skuName": {
-            "defaultValue": "B1",
+            "defaultValue": "S2",
             "allowedValues": [
                 "B1",
                 "B2",
@@ -60,7 +60,7 @@
         }
     },
     "variables": {
-        "deploymentTelemetryKey": "e15aa4db-a1cc-4622-844f-e7dd01596983"
+        "deploymentTelemetryKey": "ac4ba11e-25f0-4c30-bb77-ef660546ca63"
     },
     "resources": [
         {
@@ -113,7 +113,10 @@
                     "properties": {
                         "Deployment_Telemetry_Instrumentation_Key": "[variables('deploymentTelemetryKey')]",
                         "SonarQubeEdition": "[parameters('SonarQube Edition')]",
-                        "SonarQubeVersion": "[parameters('SonarQube Version')]"
+                        "SonarQubeVersion": "[parameters('SonarQube Version')]",
+                        "sonar.jdbc.url": "jdbc:sqlserver://boq-sonar-poc.database.windows.net:1433;database=sonar;encrypt=true",
+                        "sonar.jdbc.username": "sonar-admin@boq-sonar-poc",
+                        "sonar.jdbc.password": "@Microsoft.KeyVault(SecretUri=https://dev-edc-sample-api-kv01.vault.azure.net/secrets/SonarQubeDBPassword)"
                     }
                 },
                 {
@@ -127,7 +130,7 @@
                     "properties": {
                         "RepoUrl": "[parameters('repoUrl')]",
                         "branch": "[parameters('branch')]",
-                        "IsManualIntegration": true
+                        "IsManualIntegration": false
                     }
                 }
             ]
